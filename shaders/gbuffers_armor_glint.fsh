@@ -9,13 +9,14 @@ in vec2 lmcoord;
 in vec2 texcoord;
 in vec4 glcolor;
 
-/* RENDERTARGETS: 0 */
-layout(location = 0) out vec4 color;
+/* RENDERTARGETS: 0,1 */
+layout(location = 0) out vec4 albedo;
+layout(location = 1) out vec4 direct;
 
 void main() {
-	color = texture(gtexture, texcoord) * glcolor;
-	color *= texture(lightmap, lmcoord);
-	if (color.a < alphaTestRef) {
-		discard;
-	}
+        albedo = texture(gtexture, texcoord) * glcolor;
+        direct = texture(lightmap, lmcoord);
+        if (albedo.a < alphaTestRef) {
+                discard;
+        }
 }
